@@ -1,9 +1,6 @@
 package ArraysHashing;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Brian Qu
@@ -33,5 +30,27 @@ public class LC49_Group_Anagrams {
         }
 
         return new ArrayList<>(groupAnagrams.values());
+    }
+
+    public List<List<String>> groupAnagrams2(String[] strs) {
+        // initialize a HashMap to store sorted string as key and anagrams as value
+        Map<String, List<String>> anagramGroup = new HashMap<>();
+
+        // traverse the array
+        for (String str : strs) {
+            // convert the string to char array and sort it
+            char[] charArray = str.toCharArray();
+            Arrays.sort(charArray);
+            String sortedStr = new String(charArray);
+
+            // if cur sorted string not in the map, add it
+            if (!anagramGroup.containsKey(sortedStr)) {
+                anagramGroup.put(sortedStr, new ArrayList<>());
+            }
+
+            anagramGroup.get(sortedStr).add(str);
+        }
+
+        return new ArrayList<>(anagramGroup.values());
     }
 }
